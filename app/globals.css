@@ -1,13 +1,31 @@
 @import "tailwindcss";
 
 @theme inline {
-    --color-foreground: #141414;
-    --color-background: #fdfdfd;
-    --color-gold: oklch(0.82 0.18 78);
+    --color-foreground: #f4f4f5;
+    --color-background: #09090b;
+    --color-accent: #fbbf24;
+    --color-surface: #18181b;
+    --color-muted: #a1a1aa;
 }
 
 body {
     @apply bg-background text-foreground;
+}
+
+* {
+    @apply border-zinc-800;
+}
+
+main {
+    @apply w-full;
+}
+
+.app-shell {
+    @apply mx-auto w-full max-w-7xl sm:px-6 lg:px-8;
+}
+
+.panel {
+    @apply rounded-2xl border border-zinc-800 bg-surface/80 backdrop-blur;
 }
 
 

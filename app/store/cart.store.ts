@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from "zustand/middleware";
-import { CartStore } from "@/lib/definitions";
+import { CartStore } from "@/app/lib/definitions";
 
 
 export const useCartStore = create<CartStore>()(persist(( set ) => ( {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/ui/navbar";
+import Navbar from "@/app/ui/navbar";
 
 const manropeSans = Manrope({
 	variable: "--font-sans",
@@ -15,18 +15,22 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout ( {
-										 children,
+										 children, modal
 									 }: Readonly<{
 	children: React.ReactNode;
+	modal: React.ReactNode;
 }> ) {
 	return (
 		<html
 			lang="en"
 			className={`${manropeSans.className} h-full antialiased`}
 		>
-		<body className="min-h-full flex flex-col">
+		<body className="min-h-full flex flex-col p-4">
 		<Navbar/>
-		{children}
+		<main className="app-shell flex-1 py-6">
+			{children}
+			{modal}
+		</main>
 		</body>
 		</html>
 	);

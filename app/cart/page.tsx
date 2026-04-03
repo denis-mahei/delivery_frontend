@@ -1,4 +1,4 @@
-import Cart from "@/ui/cart";
+import Cart from "@/app/ui/cart";
 
 const Page = () => {
 	return <Cart/>;
