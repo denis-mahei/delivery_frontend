@@ -13,7 +13,6 @@ type ProductsListProps = {
 }
 
 const ProductsList = ( { products, totalPages, currentPage, onPageChange }: ProductsListProps ) => {
-	console.log('Current: ',currentPage);
 	return (
 		<main className="space-y-3">
 

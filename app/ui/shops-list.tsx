@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image";
 
 import ProductsList from "./products-list"
@@ -15,14 +15,20 @@ type ShopProps = {
 }
 
 const ShopsList = ( { shops, categories, products }: ShopProps ) => {
-	const { data } = products
+	const { data, totalPages: initialTotalPages } = products
 	const [page, setPage] = useState(1)
-	const [totalPages, setTotalPages] = useState(1)
+	const [totalPages, setTotalPages] = useState(initialTotalPages)
 	const [selectedShopId, setSelectedShopId] = useState<number | null>(null)
 	const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null)
 	const [productList, setProductList] = useState(data)
+	const skipInitialFetch = useRef(true)
 
 	useEffect(() => {
+		if (skipInitialFetch.current) {
+			skipInitialFetch.current = false
+			return
+		}
+
 		const params: Params = { page };
 		if (selectedShopId) params.shopId = selectedShopId;
 		if (selectedCategoryId) params.categoryId = selectedCategoryId;
@@ -39,7 +45,10 @@ const ShopsList = ( { shops, categories, products }: ShopProps ) => {
 				<ProductsSorted
 				categories={categories}
 				selectedCategoryId={selectedCategoryId}
-				onSelectCategory={setSelectedCategoryId}
+				onSelectCategory={(categoryId) => {
+					setSelectedCategoryId(categoryId)
+					setPage(1)
+				}}
 			/>
 				<section className="panel p-3 md:w-1/2">
 					<h2 className="mb-3 text-lg font-semibold sm:text-xl">Choose a shop</h2>
@@ -47,10 +56,13 @@ const ShopsList = ( { shops, categories, products }: ShopProps ) => {
 
 						<li className={`relative h-28 w-28 shrink-0 cursor-pointer overflow-hidden rounded-xl border transition sm:h-32 sm:w-32 ${
 							selectedShopId === null
-								? "scale-[1.03] border-t-amber-300/00 shadow-lg shadow-amber-500/50"
+								? "scale-[1.03] border-amber-300 shadow-lg shadow-amber-500/50"
 								: "border-zinc-700 hover:scale-[1.03]"
 						}`}
-							onClick={() => setSelectedShopId(null)}>
+							onClick={() => {
+								setSelectedShopId(null)
+								setPage(1)
+							}}>
 							<Image
 								src='https://plus.unsplash.com/premium_photo-1663126629970-f76cf591361d?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 								alt='' width={400} height={400}
@@ -68,10 +80,11 @@ const ShopsList = ( { shops, categories, products }: ShopProps ) => {
 								onClick={() => {
 									setSelectedShopId(shop.id)
 									setSelectedCategoryId(null)
+									setPage(1)
 								}}
 								className={`relative h-28 w-28 shrink-0 cursor-pointer overflow-hidden rounded-xl border transition sm:h-32 sm:w-32 ${
 									selectedShopId === shop.id
-										? "scale-[1.03] border-t-amber-300/00 shadow-lg shadow-amber-500/50"
+										? "scale-[1.03] border-amber-300 shadow-lg shadow-amber-500/50"
 										: "border-zinc-700 hover:scale-[1.03]"
 								}`}
 							>

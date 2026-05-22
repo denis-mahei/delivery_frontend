@@ -6,7 +6,7 @@ export interface Shop {
 }
 
 export interface Product {
-	id: string;
+	id: number;
 	name: string;
 	price: number;
 	imageUrl: string;
@@ -24,8 +24,8 @@ export interface CartItem extends Product {
 export interface CartStore {
 	items: CartItem[]
 	addItem: ( product: CartItem ) => void
-	removeItem: ( productId: string ) => void
-	updateQuantity: ( productId: string, quantity: number ) => void
+	removeItem: ( productId: number ) => void
+	updateQuantity: ( productId: number, quantity: number ) => void
 	clearCart: () => void
 }
 

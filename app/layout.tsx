@@ -29,8 +29,8 @@ export default function RootLayout ( {
 		<Navbar/>
 		<main className="app-shell flex-1 py-6">
 			{children}
-			{modal}
 		</main>
+		{modal}
 		</body>
 		</html>
 	);
