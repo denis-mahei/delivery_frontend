@@ -12,7 +12,7 @@ const ProductsSorted = ( { categories, selectedCategoryId, onSelectCategory }: P
 	return (
 		<section className="panel p-3 sm:p-4 md:w-1/2">
 			<h2 className="mb-3 text-base font-semibold text-zinc-100 sm:text-lg">Filter by category</h2>
-			<ul className="flex gap-2 overflow-x-auto pb-1">
+			<ul className="flex flex-col gap-2 overflow-x-auto pb-1">
 				<li>
 					<button
 						type="button"
